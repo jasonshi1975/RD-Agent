@@ -1,9 +1,9 @@
 qlib_init:
-    provider_uri: "~/.qlib/qlib_data/cn_data"
+    provider_uri: "~/.qlib/qlib_data/global_index_data"
     region: cn
 
-market: &market csi300
-benchmark: &benchmark SH000300
+market: &market global
+benchmark: &benchmark IXIC
 
 data_handler_config: &data_handler_config
     start_time: 2008-01-01
@@ -47,8 +47,8 @@ port_analysis_config: &port_analysis_config
         module_path: qlib.contrib.strategy
         kwargs:
             signal: <PRED>
-            topk: 50
-            n_drop: 5
+            topk: 10
+            n_drop: 2
     backtest:
         start_time: 2017-01-01
         end_time: 2020-08-01
