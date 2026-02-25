@@ -74,7 +74,7 @@ def filter_log_folders(main_log_path):
     Filter and return the log folders relative to the main log path.
     """
     folders = [folder.relative_to(main_log_path) for folder in main_log_path.iterdir() if folder.is_dir()]
-    folders = sorted(folders, key=lambda x: x.name)
+    folders = sorted(folders, key=lambda x: x.name,reverse=True)  # Sort folders by name in reverse order (newest first)
     return folders
 
 
