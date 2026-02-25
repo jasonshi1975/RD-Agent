@@ -3,13 +3,73 @@ qlib_quant_background: |-
   
   You are one of the most authoritative quantitative researchers at a top Wall Street hedge fund. I need your expertise to develop new factors and models that can enhance our investment returns. Based on the given context, I will ask for your assistance in designing and implementing either factors or a model.
 
+  初始的交易策略设想
+    - 目标：获得比benchmark指数更高的收益率(年化收益率比benchmark收益率高100%)，同时控制风险，获得更好的夏普比率。
+    - 实现超额收益率的策略： 通过高效且稳定的因子公式在较少的时间段内获取单个股票/指数的大部分收益率；通过板块轮动模式通过投资全球不同股市的主要指数来获得更多单位时间收益；投资全球可以分散风险获得更好的风险调整后收益率。
+    - 使用基于评分机制进行买入卖出，评分上升突破某个阈值逐步进行买入，继续上升进行加仓，评分下降时逐步进行减仓，突破某个阈值进行全部清仓。
+    - 需要通过不同维度对指数进行评分，例如趋势维度，强度维度，成交量维度，波动率，通道维度，超买超卖维度等。综合这些维度的评分来进行加权平均(或者相乘，具体视维度类型)，得到最终的总评分
+    - 同一个维度内，挑选2~3个典型指标进行加权平均(或者相乘，具体视指标类型)，例如趋势维度内，可以挑选20/60/120日均线的相对位置和形态等指标；强度维度内，可以挑选ADX指标，平均真实波幅ATR指标等；成交量维度内，可以挑选成交量均线，成交量相对位置等指标；波动率维度内，可以挑选历史波动率，平均真实波幅ATR指标等；通道维度内，可以挑选布林带位置，唐奇安通道位置等指标；超买超卖维度内，可以挑选RSI指标，随机指标KDJ等。也可以增加一些机器学习相关的指标。
+    - 在同一个维度内的2~3个典型指标基础上，是具体指标类型，增加该指标的不同周期数字，例如20/60/120日均线等，来形成多层次的评分体系，来更好地捕捉不同周期的趋势信息，增强评分的稳定性和可靠性。不同周期的趋势信息可以相互验证，形成共振时评分更高，形成错位时评分更低。
+    - 交易对象都是全球各主要市场的主要指数，不涉及个股，QLIB中的测试数据都是指数行情信息。
+    - 应对极端的超买超卖场景：某个指数如果极度超买时，适当降低该指数持仓量，以降低风险。对于极度超卖的指数，不进行加仓或者买入操作，避免无限制下跌风险
+
+    交易规则：
+    - 基于日线交易，在每日开盘时，按照开盘价进行买入卖出操作
+    - 买入卖出时需要按照T+1的规则进行操作，不能当天买入当天卖出。不支持杠杆交易，持仓量最多为100%，不支持卖空，持仓量不能是负数。
+
+    持仓策略：
+    - 避免过度集中风险，单个指数的持仓量有一定限制，同一个市场的指数持仓量总和有一定限制，相关性较大的指数持仓量总和有一定限制
+    - 买入卖出时需要分2~3次逐步进行加仓减仓，不要一次性买入/卖出，避免短期波动太大。
+    - 使用类似板块轮动策略，挑选趋势强劲的指数进行买入。趋势较强，上涨速度较快的，买入更多；趋势较弱，上涨速度较慢的，买入较少；趋势向下的，不买入或者卖出。
+    - 同一个市场内的指数出现相同的趋势，形成共振时，买入更多；同一个市场内的指数出现相反的趋势，形成错位时，买入较少或者卖出。
+
+    代码编写要求：
+    - 如果因子的计算公式特别耗时(例如使用sklearn库的一些函数)，需要改为GPU加速的版本，例如用 cuDF/cuPy替代pandas/numpy，用XGBoost/LightGBM GPU版本替代 sklearn GBDT。当前机器拥有NVidia 5060移动版显卡，并支持CUDA接口。
+    - 如果因子计算公式比较简单，计算量不大，如SMA,MA,EMA等，可以直接使用pandas/numpy等CPU版本库进行计算，或者直接的python代码，不需要特地引入GPU加速，避免造成代码问题。
+    - 在生成代码之后，在执行之前，请先检查代码是否满足上述GPU/CPU算法要求，满足要求之后再继续执行，如果不满足要求，请先修复代码再执行。
+    - 在生成代码之后，在执行之前，请先检查代码中是否有明显的错误，例如语法错误，库函数使用错误，变量命名错误等，如果有明显的错误，请先修正这些错误再执行代码。
+    - 如果单个loop中的单个Evolving Rounds执行时间过长(例如超过30分钟)，则强制中断执行，并检查代码复杂度是否合适，检查代码是否满足上述GPU/CPU算法要求，满足要求之后再继续执行，如果不满足要求，请先修复代码再执行。
+
+
   {% if runtime_environment is not none %}
   ====== Runtime Environment ======
   You have following environment to run the code:
   {{ runtime_environment }}
   {% endif %}
 
+
+  运行时，如果出现不可恢复的系统错误，如qrun命令找不到，或者其他python类库缺失/错误，则立即中断执行，不要继续循环，避免后续的无效循环。
+
 qlib_factor_background: |-
+  初始的交易策略设想
+    - 目标：获得比benchmark指数更高的收益率(年化收益率比benchmark收益率高100%)，同时控制风险，获得更好的夏普比率。
+    - 实现超额收益率的策略： 通过高效且稳定的因子公式在较少的时间段内获取单个股票/指数的大部分收益率；通过板块轮动模式通过投资全球不同股市的主要指数来获得更多单位时间收益；投资全球可以分散风险获得更好的风险调整后收益率。
+    - 使用基于评分机制进行买入卖出，评分上升突破某个阈值逐步进行买入，继续上升进行加仓，评分下降时逐步进行减仓，突破某个阈值进行全部清仓。
+    - 需要通过不同维度对指数进行评分，例如趋势维度，强度维度，成交量维度，波动率，通道维度，超买超卖维度等。综合这些维度的评分来进行加权平均(或者相乘，具体视维度类型)，得到最终的总评分
+    - 同一个维度内，挑选2~3个典型指标进行加权平均(或者相乘，具体视指标类型)，例如趋势维度内，可以挑选20/60/120日均线的相对位置和形态等指标；强度维度内，可以挑选ADX指标，平均真实波幅ATR指标等；成交量维度内，可以挑选成交量均线，成交量相对位置等指标；波动率维度内，可以挑选历史波动率，平均真实波幅ATR指标等；通道维度内，可以挑选布林带位置，唐奇安通道位置等指标；超买超卖维度内，可以挑选RSI指标，随机指标KDJ等。也可以增加一些机器学习相关的指标。
+    - 在同一个维度内的2~3个典型指标基础上，是具体指标类型，增加该指标的不同周期数字，例如20/60/120日均线等，来形成多层次的评分体系，来更好地捕捉不同周期的趋势信息，增强评分的稳定性和可靠性。不同周期的趋势信息可以相互验证，形成共振时评分更高，形成错位时评分更低。
+    - 交易对象都是全球各主要市场的主要指数，不涉及个股，QLIB中的测试数据都是指数行情信息。
+    - 应对极端的超买超卖场景：某个指数如果极度超买时，适当降低该指数持仓量，以降低风险。对于极度超卖的指数，不进行加仓或者买入操作，避免无限制下跌风险
+
+    交易规则：
+    - 基于日线交易，在每日开盘时，按照开盘价进行买入卖出操作
+    - 买入卖出时需要按照T+1的规则进行操作，不能当天买入当天卖出。不支持杠杆交易，持仓量最多为100%，不支持卖空，持仓量不能是负数。
+
+    持仓策略：
+    - 避免过度集中风险，单个指数的持仓量有一定限制，同一个市场的指数持仓量总和有一定限制，相关性较大的指数持仓量总和有一定限制
+    - 买入卖出时需要分2~3次逐步进行加仓减仓，不要一次性买入/卖出，避免短期波动太大。
+    - 使用类似板块轮动策略，挑选趋势强劲的指数进行买入。趋势较强，上涨速度较快的，买入更多；趋势较弱，上涨速度较慢的，买入较少；趋势向下的，不买入或者卖出。
+    - 同一个市场内的指数出现相同的趋势，形成共振时，买入更多；同一个市场内的指数出现相反的趋势，形成错位时，买入较少或者卖出。
+
+    代码编写要求：
+    - 如果因子的计算公式特别耗时(例如使用sklearn库的一些函数)，需要改为GPU加速的版本，例如用 cuDF/cuPy替代pandas/numpy，用XGBoost/LightGBM GPU版本替代 sklearn GBDT。当前机器拥有NVidia 5060移动版显卡，并支持CUDA接口。
+    - 如果因子计算公式比较简单，计算量不大，如SMA,MA,EMA等，可以直接使用pandas/numpy等CPU版本库进行计算，或者直接的python代码，不需要特地引入GPU加速，避免造成代码问题。
+    - 在生成代码之后，在执行之前，请先检查代码是否满足上述GPU/CPU算法要求，满足要求之后再继续执行，如果不满足要求，请先修复代码再执行。
+    - 在生成代码之后，在执行之前，请先检查代码中是否有明显的错误，例如语法错误，库函数使用错误，变量命名错误等，如果有明显的错误，请先修正这些错误再执行代码。
+    
+  
+    
+  
   The factor is a characteristic or variable used in quant investment that can help explain the returns and risks of a portfolio or a single asset. Factors are used by investors to identify and exploit sources of excess returns, and they are central to many quantitative investment strategies.
   Each number in the factor represents a physics value to an instrument on a day.
   User will train a model to predict the next several days return based on the factor values of the previous days.
@@ -161,7 +221,7 @@ qlib_factor_from_report_rich_style_description : |-
 qlib_factor_experiment_setting: |-
   | Dataset 📊 | Model 🤖    | Factors 🌟       | Data Split  🧮                                   |
   |---------|----------|---------------|-------------------------------------------------|
-  | CSI300  | LGBModel | Alpha158 Plus | Train: 2008-01-01 to 2014-12-31 <br> Valid: 2015-01-01 to 2016-12-31 <br> Test &nbsp;: 2017-01-01 to 2020-08-01 |
+  | GLOBAL  | LGBModel | Alpha158 Plus | Train: 2008-01-01 to 2014-12-31 <br> Valid: 2015-01-01 to 2016-12-31 <br> Test &nbsp;: 2017-01-01 to 2020-08-01 |
 
 
 qlib_model_background: |-
@@ -232,6 +292,9 @@ qlib_model_simulator: |-
   4. Evaluate the portfolio's performance, including metrics such as return, IC, max drawdown, and others.
   5. Iterate on growing the hypothesis to enable model improvements based on performance evaluations and feedback.
 
+  每一轮的评估结果的收益率信息，以及IC等metrics信息都需要打印到日志中。
+  同时需要打印收益率最高/最低的几个指数
+
 qlib_model_rich_style_description: |-
   ### Qlib Model Evolving Automatic R&D Demo
   
@@ -256,4 +319,4 @@ qlib_model_rich_style_description: |-
 qlib_model_experiment_setting: |-
   | Dataset 📊 | Model 🤖    | Factors 🌟       | Data Split  🧮                                   |
   |---------|----------|---------------|-------------------------------------------------|
-  | CSI300  | RDAgent-dev | 20 factors (Alpha158)  | Train: 2008-01-01 to 2014-12-31 <br> Valid: 2015-01-01 to 2016-12-31 <br> Test &nbsp;: 2017-01-01 to 2020-08-01 |
+  | GLOBAL  | RDAgent-dev | 20 factors (Alpha158)  | Train: 2008-01-01 to 2014-12-31 <br> Valid: 2015-01-01 to 2016-12-31 <br> Test &nbsp;: 2017-01-01 to 2020-08-01 |
