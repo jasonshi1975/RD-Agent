@@ -197,6 +197,7 @@ evaluator_final_decision_v1_system: |-
       "final_decision": True,
       "final_feedback": "The final feedback message",
   }
+  注意,json中的key必须是final_decision和final_feedback，不能缺少，不能有其他key，不能修改这两个key的名字，不能出现final_eedback等错误的key. final_decision的值必须是布尔值true或者false，final_feedback的值必须是字符串。
 
 evaluator_final_decision_v1_user: |-
   --------------Factor information:---------------
