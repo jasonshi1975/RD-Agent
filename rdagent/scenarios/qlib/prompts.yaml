@@ -93,45 +93,64 @@ model_hypothesis_specification: |-
   8. Use standard libraries for baseline models, but also explore custom architecture designs to investigate novel structures. After sufficient trials with traditional models, aim for innovation comparable to top-tier AI conferences (NeurIPS, ICLR, ICML, SIGKDD, etc.) in time series modeling.
 
 factor_hypothesis_specification: |-
-  1. **1-5 Factors per Generation:**
-    - Ensure each generation produces 1-5 factors.
-    - Balance simplicity and complexity to build a robust factor library.
-    - Make full use of the financial data provided to you instead of focusing solely on a specific field.
-  2. **Simple and Effective Factors First:**
-    - Start with factors that are simple, easy to achieve and likely effective.
-    - Concisely explain why these factors are expected to work.
-    - Avoid complex or combined factors initially.
-  3. **Gradual Complexity Increase:**
-    - Introduce more complex factors (e.g. machine learning based factors, factors use mult-dimentional factor raw data, etc.) as more experimental results are gathered.
-    - Combine factors only after simpler ones are tested and validated.
-  4. **New Directions and Optimizations:**
-    - If multiple consecutive iterations fail to produce factors surpassing SOTA, consider switching to a new direction and can starting with simple factors again.
-    - If optimizing a specific type of factor, proceed from simple to complex.
-  5. Note
-    - Highlight that factors surpassing SOTA are included in the library to avoid re-implementation.
-    - No matter how many factors you plan to generate, only reply with one set of hypothesis and reason. The hypothesis can include the proposal of multiple factors at the same time.
+  因子生成方针：
+  1. **每一代生成 1–5 个因子：**
+     - 确保每一代产出 1–5 个因子。
+     - 在简单性与复杂性之间取得平衡，以构建稳健的因子库。
+     - 充分利用提供给你的金融数据，而不是仅仅关注某一个特定字段。
+  2. **先从简单有效的因子开始：**
+     - 从简单、易实现且可能有效的因子开始。
+     - 简明扼要地解释为什么这些因子预期会有效。
+     - 初始阶段避免复杂或组合因子。
+  3. **迭代改进,逐步提升复杂度：**
+     - 随着实验结果的积累，如果简单因子表现良好，可以在后续迭代中引入更复杂的因子（例如基于机器学习的因子、使用多维原始数据的因子等）。
+     - 只有在测试和验证了更简单的因子之后，才考虑组合因子。
+  4. **探索新方向与优化：**
+     - 如果连续多次迭代未能生成超越 SOTA 的因子，应考虑切换到新的研究方向，并可重新从简单因子开始。
+     - 若针对某一特定类型的因子进行优化，应遵循由简单到复杂的路径。
+  5. **注意事项**：
+     - 明确标注已超越 SOTA 的因子，并将其纳入因子库，以避免重复实现。
+     - 无论计划生成多少个因子，仅需回复一组假设及其理由。该假设可以同时包含多个因子的提议。
+
+  生成因子时请遵循以下规范（：
+  1. **因子名称**：应该简洁、清晰、用英文表达,不要使用中文因子名称，尽量参考业界通用的英文简称。
+  2. **因子描述**：必须使用中文进行描述，详细说明该因子的：
+     - 目的：该因子试图捕捉什么样的市场特征
+     - 计算方法：如何从原始数据计算该因子
+     - 应用：该因子可以用于什么样的交易策略或风险评估
+  3. **数学公式**：使用标准的数学表达和 LaTeX 格式，其中不要出现中文。
+  4. **变量定义**：清楚地定义公式中使用的所有变量，变量名不要出现中文
+
+  ** 重要提示：除了因子/变量名称/公式内容使用英文，所有描述信息都应该使用中文** 
 
 factor_experiment_output_format: |-
-  The output should follow JSON format. The schema is as follows:
+  返回一个 JSON 对象。**所有因子名称必须用英文取名，并保持简介明了。描述信息必须完全用中文。** 格式如下：
+  
   {
-      "factor name 1": {
-          "description": "description of factor 1, start with its type, e.g. [Momentum Factor]",
-          "formulation": "latex formulation of factor 1",
-          "variables": {
-              "variable or function name 1": "description of variable or function 1",
-              "variable or function name 2": "description of variable or function 2"
-          }
-      },
-      "factor name 2": {
-          "description": "description of factor 2, start with its type, e.g. [Machine Learning based Factor]",
-          "formulation": "latex formulation of factor 2",
-          "variables": {
-              "variable or function name 1": "description of variable or function 1",
-              "variable or function name 2": "description of variable or function 2"
-          }
+    "factor_name_1": {
+      "description": "该因子的中文描述。详细说明该因子的含义、计算逻辑和用途。例如：[动量因子]结合 10 天和 60 天价格动量的多周期动量因子，使用加权平均值同时捕捉短期和中期趋势，正值表示跨多个时间框架的上升动量，增强趋势检测稳定性，用于趋势维度指数评分。",
+      "formulation": "使用 LaTeX 格式表示的公式。要求字体大小合适，排版精良，换行正确，能够在UI上正确渲染。",
+      "variables": {
+        "variable or function name 1"": "变量1或者函数1的名字，这里不需要用中文名字",
+        "variable or function name 2"": "变量2或者函数2的名字，这里不需要用中文名字"
       }
-      # Don't add ellipsis (...) or any filler text that might cause JSON parsing errors here!
+    },
+    "factor_name_2": {
+      "description": "该因子的中文描述。详细说明该因子的含义、计算逻辑和用途。例如：[基于机器学习的因子...]",
+      "formulation": "使用 LaTeX 格式表示的公式。",
+      "variables": {
+        "variable or function name 1"": "变量1或者函数1的名字，这里不需要用中文名字",
+        "variable or function name 2"": "变量2或者函数2的名字，这里不需要用中文名字"
+      }
+    }
+    # Don't add ellipsis (...) or any filler text that might cause JSON parsing errors here!
   }
+
+  **关键要求（重要！）：**
+  - 因子名称和变量名称都应该使用英文，如果有业界通用的英文简称，尽量使用英文
+  - 因子和变量的描述必须使用中文。
+  - 使用LaTex描述的公式，需要保证在UI上能够正确渲染。要求字体大小合适，排版精良。
+  
 
 model_experiment_output_format: |-
   So far please only design one model to test the hypothesis! 
@@ -288,34 +307,6 @@ action_gen:
   user: |-
     {% if hypothesis_and_feedback|length == 0 %}
     
-    初始的交易策略设想
-      - 目标：获得比benchmark指数更高的收益率(年化收益率比benchmark收益率高100%)，同时控制风险，获得更好的夏普比率。
-      - 实现超额收益率的策略： 通过高效且稳定的因子公式在较少的时间段内获取单个股票/指数的大部分收益率；通过板块轮动模式通过投资全球不同股市的主要指数来获得更多单位时间收益；投资全球可以分散风险获得更好的风险调整后收益率。
-      - 使用基于评分机制进行买入卖出，评分上升突破某个阈值逐步进行买入，继续上升进行加仓，评分下降时逐步进行减仓，突破某个阈值进行全部清仓。
-      - 需要通过不同维度对指数进行评分，例如趋势维度，强度维度，成交量维度，波动率，通道维度，超买超卖维度等。综合这些维度的评分来进行加权平均(或者相乘，具体视维度类型)，得到最终的总评分
-      - 同一个维度内，挑选2~3个典型指标进行加权平均(或者相乘，具体视指标类型)，例如趋势维度内，可以挑选20/60/120日均线的相对位置和形态等指标；强度维度内，可以挑选ADX指标，平均真实波幅ATR指标等；成交量维度内，可以挑选成交量均线，成交量相对位置等指标；波动率维度内，可以挑选历史波动率，平均真实波幅ATR指标等；通道维度内，可以挑选布林带位置，唐奇安通道位置等指标；超买超卖维度内，可以挑选RSI指标，随机指标KDJ等。也可以增加一些机器学习相关的指标。
-      - 在同一个维度内的2~3个典型指标基础上，是具体指标类型，增加该指标的不同周期数字，例如20/60/120日均线等，来形成多层次的评分体系，来更好地捕捉不同周期的趋势信息，增强评分的稳定性和可靠性。不同周期的趋势信息可以相互验证，形成共振时评分更高，形成错位时评分更低。
-      - 交易对象都是全球各主要市场的主要指数，不涉及个股，QLIB中的测试数据都是指数行情信息。
-      - 应对极端的超买超卖场景：某个指数如果极度超买时，适当降低该指数持仓量，以降低风险。对于极度超卖的指数，不进行加仓或者买入操作，避免无限制下跌风险
-
-      交易规则：
-      - 基于日线交易，在每日开盘时，按照开盘价进行买入卖出操作
-      - 买入卖出时需要按照T+1的规则进行操作，不能当天买入当天卖出。不支持杠杆交易，持仓量最多为100%，不支持卖空，持仓量不能是负数。
-
-      持仓策略：
-      - 避免过度集中风险，单个指数的持仓量有一定限制，同一个市场的指数持仓量总和有一定限制，相关性较大的指数持仓量总和有一定限制
-      - 买入卖出时需要分2~3次逐步进行加仓减仓，不要一次性买入/卖出，避免短期波动太大。
-      - 使用类似板块轮动策略，挑选趋势强劲的指数进行买入。趋势较强，上涨速度较快的，买入更多；趋势较弱，上涨速度较慢的，买入较少；趋势向下的，不买入或者卖出。
-      - 同一个市场内的指数出现相同的趋势，形成共振时，买入更多；同一个市场内的指数出现相反的趋势，形成错位时，买入较少或者卖出。
-
-      代码编写要求：
-      - 如果因子的计算公式特别耗时(例如使用sklearn库的一些函数)，需要改为GPU加速的版本，例如用 cuDF/cuPy替代pandas/numpy，用XGBoost/LightGBM GPU版本替代 sklearn GBDT。当前机器拥有NVidia 5060移动版显卡，并支持CUDA接口。
-      - 如果因子计算公式比较简单，计算量不大，如SMA,MA,EMA等，可以直接使用pandas/numpy等CPU版本库进行计算，或者直接的python代码，不需要特地引入GPU加速，避免造成代码问题。
-      - 在生成代码之后，在执行之前，请先检查代码是否满足上述GPU/CPU算法要求，满足要求之后再继续执行，如果不满足要求，请先修复代码再执行。
-      - 在生成代码之后，在执行之前，请先检查代码中是否有明显的错误，例如语法错误，库函数使用错误，变量命名错误等，如果有明显的错误，请先修正这些错误再执行代码。
-      - 如果单个loop中的单个Evolving Rounds执行时间过长(例如超过30分钟)，则强制中断执行，并检查代码复杂度是否合适，检查代码是否满足上述GPU/CPU算法要求，满足要求之后再继续执行，如果不满足要求，请先修复代码再执行。
-
-
 
     #It is the first round of hypothesis generation. The user has no hypothesis on this scenario yet.
     {% else %}

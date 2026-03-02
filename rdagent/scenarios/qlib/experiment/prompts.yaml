@@ -1,4 +1,6 @@
 qlib_quant_background: |-
+  所有输入输出请使用中文
+
   Quantitative investment is a data-driven approach to asset management that relies on mathematical models, statistical techniques, and computational methods to analyze financial markets and make investment decisions. Two essential components of this approach are factors and models.
   
   You are one of the most authoritative quantitative researchers at a top Wall Street hedge fund. I need your expertise to develop new factors and models that can enhance our investment returns. Based on the given context, I will ask for your assistance in designing and implementing either factors or a model.
@@ -67,7 +69,8 @@ qlib_factor_background: |-
     - 在生成代码之后，在执行之前，请先检查代码是否满足上述GPU/CPU算法要求，满足要求之后再继续执行，如果不满足要求，请先修复代码再执行。
     - 在生成代码之后，在执行之前，请先检查代码中是否有明显的错误，例如语法错误，库函数使用错误，变量命名错误等，如果有明显的错误，请先修正这些错误再执行代码。
     
-  
+    不要使用如下Factor：
+    - 1. hmmlearn->HMM (regime using Hidden Markov Model)
     
   
   The factor is a characteristic or variable used in quant investment that can help explain the returns and risks of a portfolio or a single asset. Factors are used by investors to identify and exploit sources of excess returns, and they are central to many quantitative investment strategies.
@@ -164,44 +167,32 @@ qlib_factor_simulator: |-
   4. evaluate the portfolio's performance including the return, sharpe ratio, max drawdown, and so on.
 
 qlib_factor_rich_style_description : |-
-  ### R&D Agent-Qlib: Automated Quantitative Trading & Iterative Factors Evolution Demo
-
-  #### [Overview](#_summary)
-
-  The demo showcases the iterative process of hypothesis generation, knowledge construction, and decision-making. It highlights how financial factors evolve through continuous feedback and refinement.
-
-  #### [Automated R&D](#_rdloops)
-
-  - **[R (Research)](#_research)**
-    - Iterative development of ideas and hypotheses.
-    - Continuous learning and knowledge construction.
-
-  - **[D (Development)](#_development)**
-    - Progressive implementation and code generation of factors.
-    - Automated testing and validation of financial factors.
-
-  #### [Objective](#_summary)
-
-  To demonstrate the dynamic evolution of financial factors through the Qlib platform, emphasizing how each iteration enhances the accuracy and reliability of the resulting financial factors.
+  ### R&D Agent-Qlib 演示
+  #### [概览](#_summary)
+  演示展示了假设生成、知识构建和决策制定的迭代过程。它突出展示了金融因子如何通过持续反馈和优化进行演变。
+  #### [自动化研究与开发](#_rdloops)
+  - **[研究 (Research)](#_research)**
+    - 想法和假设的迭代开发。
+    - 持续学习和知识构建。
+  - **[开发 (Development)](#_development)**
+    - 因子的逐步实现和代码生成。
+    - 金融因子的自动化测试和验证。
+  #### [目标](#_summary)
+  通过 Qlib 平台展示金融因子的动态演变，强调每次迭代如何增强生成的金融因子的准确性和可靠性。
 
 qlib_factor_from_report_rich_style_description : |-
-  ### R&D Agent-Qlib: Automated Quantitative Trading & Factor Extraction from Financial Reports Demo
-
-  #### [Overview](#_summary)
-
-  This demo showcases the process of extracting factors from financial research reports, implementing these factors, and analyzing their performance through Qlib backtest, continually expanding and refining the factor library.
-
-  #### [Automated R&D](#_rdloops)
-
-  - **[R (Research)](#_research)**
-    - Iterative development of ideas and hypotheses from financial reports.
-    - Continuous learning and knowledge construction.
-
-  - **[D (Development)](#_development)**
-    - Progressive factor extraction and code generation.
-    - Automated implementation and testing of financial factors.
-
-  #### [Objective](#_summary)
+  ### 研究开发代理-Qlib：基于金融研报的自动化量化交易与因子提取演示
+  #### [概览](#_summary)
+  本演示展示了从金融研究报告中提取因子、实现这些因子，并通过 Qlib 回测分析其表现的全过程，同时持续扩展和优化因子库。
+  #### [自动化研发](#_rdloops)
+  - **[研究 (Research)](#_research)**
+    - 基于金融报告进行观点与假设的迭代开发。
+    - 持续学习与知识体系构建。
+  - **[开发 (Development)](#_development)**
+    - 逐步进行因子提取与代码生成。。
+    - 自动化实现与测试金融因子。
+  #### [目标](#_summary)
+  为了展示通过 Qlib 平台实现的金融因子的动态演化过程，重点说明每一次迭代如何提升最终金融因子的准确性与可靠性。
 
   <table border="1" style="width:100%; border-collapse: collapse;">
     <tr>

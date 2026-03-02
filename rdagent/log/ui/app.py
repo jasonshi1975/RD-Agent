@@ -839,7 +839,7 @@ with st.container():
         st.markdown(
             """
         <h1>
-            RD-Agent:<br>LLM-based autonomous evolving agents for industrial data-driven R&D
+            RD-Agent:研发自主进化智能体
         </h1>
         """,
             unsafe_allow_html=True,
@@ -852,7 +852,7 @@ with st.container():
         img_path = rfiles("rdagent.log.ui").joinpath("flow.png")
         st.image(str(img_path), use_container_width=True)
     with scen_c:
-        st.header("Scenario Description📖", divider="violet", anchor="_scenario")
+        st.header("场景描述📖", divider="violet", anchor="_scenario")
         if state.scenario is not None:
             theme = st_theme()
             if theme:
