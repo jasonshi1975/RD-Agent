@@ -121,6 +121,131 @@ factor_hypothesis_specification: |-
   3. **数学公式**：使用标准的数学表达和 LaTeX 格式，其中不要出现中文。
   4. **变量定义**：清楚地定义公式中使用的所有变量，变量名不要出现中文
 
+  以下是一些常见的因子名称及其简写，你可以参考它们来命名你的因子：
+  - Acceleration :Acc
+  - Accumulation Distribution :AD
+  - Accumulation Distribution Line :ADL
+  - Adjusted :Adj
+  - Advance Decline Line :ADLINE
+  - Advance Decline Ratio :ADR
+  - Amihud Illiquidity :ILLIQ
+  - Amount :Amt
+  - Arms Index (TRIN) :TRIN
+  - Aroon Down :AROOND
+  - Aroon Indicator :AROON
+  - Aroon Up :AROONU
+  - Average :Avg
+  - Average Directional Index :ADX
+  - Average True Range :ATR
+  - Bid Ask Spread :BAS
+  - Bollinger %B :PctB
+  - Bollinger Band Width :BBW
+  - Bollinger Bands :BB
+  - Camarilla Pivot Points :CPP
+  - Chaikin Money Flow :CMF
+  - Chaikin Oscillator :CHO
+  - Chaikin Volatility :CV
+  - Chande Momentum Oscillator :CMO
+  - Chande Trend Meter :CTM
+  - Commodity Channel Index :CCI
+  - Confirmation :Conf
+  - Connors RSI :CRSI
+  - Correlation :Corr
+  - DeMarker Indicator :DEM
+  - Detrended Price Oscillator :DPO
+  - Directional Movement Index :DMI
+  - Divergence :Div
+  - Donchian Channel :DC
+  - Double Exponential Moving Average :DEMA
+  - Ease of Movement :EOM
+  - Effective Spread :ESP
+  - Elder Ray Index :ERI
+  - Exponential Moving Average :EMA
+  - Fibonacci Channel :FIBCH
+  - Fibonacci Extension :FIBEXT
+  - Fibonacci Retracement :FIB
+  - Fisher Transform :FT
+  - Force Index :FI
+  - Fractal Indicator :FRACTAL
+  - Gann Fan :GANN
+  - Geometric Moving Average :GMA
+  - Heikin Ashi :HA
+  - Historical Volatility :HV
+  - Hodrick Prescott Filter :HP
+  - Hull Moving Average :HMA
+  - Ichimoku Cloud :ICH
+  - Kalman Filter Trend :KF
+  - Kaufman Adaptive Moving Average :KAMA
+  - Keltner Channel :KC
+  - Know Sure Thing :KST
+  - Kyle Lambda :KYL
+  - Linear Regression Intercept :LRI
+  - Linear Regression Slope :LRS
+  - Log Returns :LogRet
+  - MACD Histogram :MACDH
+  - Momentum :MOM
+  - Money Flow Index :MFI
+  - Moving Average :MA
+  - Moving Average Convergence Divergence :MACD
+  - Moving Average Envelope :MAE
+  - Moving Average Ribbon :MAR
+  - Negative Directional Indicator :NDI
+  - Negative Volume Index :NVI
+  - Normalized :Norm
+  - On Balance Volume :OBV
+  - Order Book Imbalance :OBI
+  - Order Flow Imbalance :OFI
+  - Oscillator :OSC
+  - Parabolic Stop and Reverse :SAR
+  - Percentage Price Oscillator :PPO
+  - Pivot Points :PP
+  - Positive Directional Indicator :PDI
+  - Positive Volume Index :PVI
+  - Price :Px
+  - Price Channel :PC
+  - Put Call Ratio :PCR
+  - R Squared Indicator :R2
+  - Rate of Change :ROC
+  - Realized Spread :RSP
+  - Regression Channel :REGCH
+  - Relative Strength Index :RSI
+  - Returns	:Ret
+  - Reversal :Rev
+  - Simple Moving Average :SMA
+  - Skewness :Skew
+  - Smoothed Moving Average :SMMA
+  - Standard Deviation :STD
+  - Stochastic %D :STOD
+  - Stochastic %K :STOK
+  - Stochastic Oscillator :STO
+  - Stochastic RSI :StochRSI
+  - SuperTrend Indicator :ST
+  - TRIX (Triple Exponential Average) :TRIX
+  - Trend Strength Index :TSI
+  - Triple Exponential Moving Average :TEMA
+  - True Range :TR
+  - True Strength Index :TSI
+  - Ulcer Index :UI
+  - Ultimate Oscillator :UO
+  - Value :Val
+  - Variable Moving Average :VMA
+  - Variance :Var
+  - Volatility :Vola
+  - Volatility Ratio :VR
+  - Volume :Vol
+  - Volume Imbalance :VI
+  - Volume Price Trend :VPT
+  - Volume Rate of Change :VROC
+  - Volume Weighted Average Price :VWAP
+  - Volume Weighted Moving Average :VWMA
+  - Vortex Indicator :VI
+  - Weighted :Wgt
+  - Weighted Moving Average :WMA
+  - Williams %R :WPR
+  - Z-Score :Z
+  - Zero Lag Exponential Moving Average :ZLEMA
+  - Zig Zag Indicator :ZZ
+
   ** 重要提示：除了因子/变量名称/公式内容使用英文，所有描述信息都应该使用中文** 
 
 factor_experiment_output_format: |-
