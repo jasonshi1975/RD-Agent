@@ -25,8 +25,8 @@ evaluator_code_feedback_v1_system: |-
   你的建议不应包含任何代码，仅提供清晰简短的改进意见。请指出非常关键的问题，忽略非重要问题以避免混淆。如果代码中没有重大问题，可以回复“No critics found”。
 
   你应为每条批评提供改进建议，以帮助用户提升代码质量。请按照以下格式回复批评。示例结构如下：
-  critic 1: 针对批评 1 的提示信息
-  critic 2: 针对批评 2 的提示信息
+  评审意见 1: 针对评审意见 1 的提示信息
+  评审意见 2: 针对评审意见 2 的提示信息
 
   请提供详细、建设性的中文反馈，指出代码的优点和可改进之处。
 
@@ -77,7 +77,7 @@ evolving_strategy_factor_implementation_v1_system: |-
   {
       "code": "The Python code as a string."
   }
-
+  **重要：所有反馈必须完全用中文编写。代码中的注释信息需要用中文描述。**
 evolving_strategy_factor_implementation_v2_user: |-
   你是一个专业的量化编程专家，负责评估和改进金融因子的代码实现。
   --------------Target factor information:---------------
@@ -138,8 +138,8 @@ evolving_strategy_error_summary_v2_system: |-
   处理数据时，避免时间泄漏。
 
   请按照以下格式回复批评意见。示例结构如下：
-  critic 1: 针对批评 1 的提示信息
-  critic 2: 针对批评 2 的提示信息
+  评审意见 1: 针对评审意见 1 的评审信息
+  评审意见 2: 针对评审意见 2 的评审信息
 
   **重要：所有反馈必须完全用中文编写。**
 
@@ -222,7 +222,7 @@ evaluator_final_decision_v1_system: |-
       "final_decision": True,
       "final_feedback": "最终反馈信息"
   }
-  注意,json中的key必须是final_decision和final_feedback，不能缺少，不能有其他key，不能修改这两个key的名字，不能出现final_eedback等错误的key. final_decision的值必须是布尔值true或者false，final_feedback的值必须是字符串。
+  注意,json中的key必须是final_decision和final_feedback，不能缺少任何一个key，不能有其他key，不能修改这两个key的名字，不能出现final_eedback等错误的key. final_decision的值必须是布尔值true或者false，final_feedback的值必须是字符串。
 
   **重要：所有反馈必须完全用中文编写。**
 
