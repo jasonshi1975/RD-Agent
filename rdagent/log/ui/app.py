@@ -452,8 +452,8 @@ def summary_window():
                     df = pd.DataFrame(state.metric_series)
                 if show_true_only and len(state.hypotheses) >= len(state.metric_series):
                     if state.alpha_baseline_metrics is not None:
-                        selected = ["Alpha Base"] + [
-                            i for i in df.index if i == "Baseline" or state.h_decisions[int(i[6:])]
+                        selected = [
+                            i for i in df.index if i == "Alpha Base" or i == "Baseline" or state.h_decisions[int(i[6:])]
                         ]
                     else:
                         selected = [i for i in df.index if i == "Baseline" or state.h_decisions[int(i[6:])]]
